@@ -1,0 +1,17 @@
+<h1 style="font-weight: 400; margin-left: 10%;">Add Post</h1>
+<ng-container>
+    <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Enter Post Title" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput style="min-height: 100px;"></textarea>
+    </mat-form-field>
+</ng-container>
+<div class="image-picker">
+    <ngp-image-picker [_config]="imagePickerConf" ($imageChanged)="handleEvent($event)"></ngp-image-picker>
+</div>
+<div class="add-post-btn">
+    <button mat-stroked-button color="primary">Publish</button>
+</div>
