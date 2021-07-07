@@ -13,8 +13,6 @@ mongoose
     console.log(err.reason);
   });
 
-const { v4: uuid } = require("uuid");
-
 const { User } = require("./database/Users");
 
 // middlewares
@@ -52,6 +50,23 @@ app.post("/db", (req, res) => {
   });
   carlo.save((err, data) => {
     if (!err) res.status(200).send("successful");
+  });
+});
+
+// creating user in db
+app.post("/signup", (req, res) => {
+  var user = new User({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+  });
+  User.countDocuments({ username: req.body.username }).then((count) => {
+    if (count === 0) {
+      user.save((err, data) => {
+        if (err) res.status(406).send(`Unsuccessful: ${err}`);
+        if (data) res.status(200).send(data);
+      });
+    } else res.status(406).send("Username already exists!");
   });
 });
 

@@ -7,6 +7,13 @@ import { Injectable } from '@angular/core';
 export class ValidatorService {
   constructor() {}
 
+  validateUsername(username: FormControl) {
+    if (username.hasError('required')) return 'Required';
+    return username.hasError('minLength') !== null
+      ? 'Username must be 3 characters long'
+      : null;
+  }
+
   validateEmail(email: FormControl) {
     if (email.hasError('required')) return 'Required';
     return email.hasError('email') ? 'Email is invalid' : null;

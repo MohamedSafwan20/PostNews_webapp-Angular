@@ -1,14 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServerService {
+  private SERVER_URL: string = 'http://localhost:3000';
+
   constructor(private http: HttpClient) {}
 
-  connect(): Observable<Object> {
-    return this.http.get('http://localhost:3000/');
+  async signUserUp(data: any) {
+    let usernameAlreadyExistsError: string = '';
+    await this.http
+      .post(`${this.SERVER_URL}/signup`, data)
+      .toPromise()
+      .catch((err) => {
+        if (err.error === 'Username already exists!')
+          usernameAlreadyExistsError = err.usernameAlreadyExistsError;
+      });
+    return usernameAlreadyExistsError;
   }
 }

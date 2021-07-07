@@ -10,8 +10,4 @@ export class HomeComponent implements OnInit {
   constructor(private server: ServerService) {}
 
   ngOnInit(): void {}
-
-  onClick() {
-    this.server.connect().subscribe((res: any) => console.log(res));
-  }
 }

@@ -4,34 +4,37 @@
 
 <mat-card class="card">
     <mat-card-content>
-        <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
-            <input matInput [formControl]="username">
-            <mat-error *ngIf="username.invalid">{{(this.username.hasError('required')) ? 'Required' : 'null'}}
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput [formControl]="email">
-            <mat-error *ngIf="email.invalid">{{getEmailErrors()}}
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" [formControl]="password">
-            <mat-error *ngIf="password.invalid">{{getPasswordErrors()}}
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Confirm Password</mat-label>
-            <input matInput type="password" [formControl]="confirmPassword">
-            <mat-error>{{getConfirmPasswordErrors()}}
-            </mat-error>
-        </mat-form-field>
-        <span *ngIf="customConfirmPasswordError" class="mat-error ng-tns-c84-4"
-            style="font-size: 75%; margin-left: 10%; margin-top: -5%;">{{customConfirmPasswordError}}</span>
-        <div class="signup-btn">
-            <button mat-stroked-button color="primary">Sign up</button>
-        </div>
+        <form (ngSubmit)="signUserUp()">
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input matInput [formControl]="username">
+                <mat-error *ngIf="username.invalid">{{getUsernameErrors()}}
+                </mat-error>
+            </mat-form-field>
+            <span *ngIf="customUsernameError" class="mat-error ng-tns-c84-4 custom-error">{{customUsernameError}}</span>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput [formControl]="email">
+                <mat-error *ngIf="email.invalid">{{getEmailErrors()}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" [formControl]="password">
+                <mat-error *ngIf="password.invalid">{{getPasswordErrors()}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput type="password" [formControl]="confirmPassword">
+                <mat-error>{{getConfirmPasswordErrors()}}
+                </mat-error>
+            </mat-form-field>
+            <span *ngIf="customConfirmPasswordError"
+                class="mat-error ng-tns-c84-4 custom-error">{{customConfirmPasswordError}}</span>
+            <div class="signup-btn">
+                <button mat-stroked-button color="primary" type="submit">Sign up</button>
+            </div>
+        </form>
     </mat-card-content>
 </mat-card>
