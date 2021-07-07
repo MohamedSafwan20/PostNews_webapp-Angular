@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgpImagePickerModule } from 'ngp-image-picker';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -21,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostComponent } from './components/post/post.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
+import { SignupComponent } from './views/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +34,15 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     PostsComponent,
     PostComponent,
     AddPostComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgpImagePickerModule,
     MatButtonModule,
     MatToolbarModule,
