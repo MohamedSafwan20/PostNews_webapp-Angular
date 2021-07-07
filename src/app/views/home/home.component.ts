@@ -1,4 +1,4 @@
-import { ServerService } from './../../services/server.service';
+import { ServerService } from 'src/app/services/server/server.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,6 +12,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {}
 
   onClick() {
-    this.server.connect().subscribe((res) => console.log(res));
+    this.server.connect().subscribe((res: any) => console.log(res));
   }
 }
