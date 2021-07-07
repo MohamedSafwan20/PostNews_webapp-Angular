@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginComponent implements OnInit {
   // public isAuthenticated: boolean = false;
+  public hide: boolean = true;
 
   constructor(public cookie: CookieService, private router: Router) {}
 

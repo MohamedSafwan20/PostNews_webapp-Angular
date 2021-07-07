@@ -1,1 +1,22 @@
-<p>login works!</p>
+<ng-container>
+    <app-navbar page="login"></app-navbar>
+</ng-container>
+
+<mat-card class="card">
+    <mat-card-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Username/Email</mat-label>
+            <input matInput placeholder="Username/Email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <div class="login-btn">
+            <button mat-stroked-button color="primary">Log in</button>
+        </div>
+    </mat-card-content>
+</mat-card>
