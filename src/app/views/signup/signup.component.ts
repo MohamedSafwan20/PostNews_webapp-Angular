@@ -2,6 +2,7 @@ import { ServerService } from 'src/app/services/server/server.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ValidatorService } from 'src/app/services/validator/validator.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -23,9 +24,12 @@ export class SignupComponent implements OnInit {
   customUsernameError: string = '';
   customConfirmPasswordError: string = '';
 
+  showBtnSpinner: boolean = false;
+
   constructor(
     private validator: ValidatorService,
-    private server: ServerService
+    private server: ServerService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -65,11 +69,15 @@ export class SignupComponent implements OnInit {
         this.customConfirmPasswordError
       )
     ) {
+      this.showBtnSpinner = true;
       this.customUsernameError = await this.server.signUserUp({
         username: this.username.value,
         email: this.email.value,
         password: this.password.value,
       });
+      console.log(this.customUsernameError);
+      if (this.customUsernameError !== '') this.showBtnSpinner = false;
+      else this.router.navigateByUrl('');
     }
   }
 }

@@ -16,7 +16,7 @@ export class ServerService {
       .toPromise()
       .catch((err) => {
         if (err.error === 'Username already exists!')
-          usernameAlreadyExistsError = err.usernameAlreadyExistsError;
+          usernameAlreadyExistsError = err.error;
       });
     return usernameAlreadyExistsError;
   }

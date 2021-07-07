@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
@@ -52,6 +53,7 @@ import { SignupComponent } from './views/signup/signup.component';
     MatSidenavModule,
     MatFormFieldModule,
     MatInputModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

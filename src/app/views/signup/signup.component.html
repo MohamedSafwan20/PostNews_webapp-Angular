@@ -33,7 +33,10 @@
             <span *ngIf="customConfirmPasswordError"
                 class="mat-error ng-tns-c84-4 custom-error">{{customConfirmPasswordError}}</span>
             <div class="signup-btn">
-                <button mat-stroked-button color="primary" type="submit">Sign up</button>
+                <button mat-stroked-button color="primary" type="submit">
+                    <mat-spinner diameter="30" style="margin: 7px auto;" *ngIf="showBtnSpinner"></mat-spinner>
+                    <span *ngIf="!showBtnSpinner">Signup</span>
+                </button>
             </div>
         </form>
     </mat-card-content>
