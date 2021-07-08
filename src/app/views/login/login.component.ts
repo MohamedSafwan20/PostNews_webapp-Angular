@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       console.log(this.response);
       if (!this.response.success) this.showBtnSpinner = false;
       else {
-        this.cookie.set('UserLoggedIn', 'true', new Date().getDate() + 15);
+        this.cookie.set('isAuthenticated', 'true', new Date().getDate() + 15);
         this.router.navigateByUrl('');
       }
     }

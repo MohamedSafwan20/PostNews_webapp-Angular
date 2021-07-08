@@ -8,11 +8,11 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  // public isAuthenticated: boolean = false;
+  public isAuthenticated: boolean = false;
 
   constructor(public cookie: CookieService, private router: Router) {
-    // if (this.cookie.get('test')) this.isAuthenticated = true;
-    // else this.isAuthenticated = false;
-    // if (this.isAuthenticated === false) router.navigateByUrl('/login');
+    if (this.cookie.get('isAuthenticated')) this.isAuthenticated = true;
+    else this.isAuthenticated = false;
+    if (!this.isAuthenticated) router.navigateByUrl('/login');
   }
 }
