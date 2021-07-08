@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
   ]);
   confirmPassword = new FormControl('', [Validators.required]);
 
-  customUsernameError: string = '';
+  customUsernameError: any = false;
   customConfirmPasswordError: string = '';
 
   showBtnSpinner: boolean = false;
@@ -75,9 +75,8 @@ export class SignupComponent implements OnInit {
         email: this.email.value,
         password: this.password.value,
       });
-      console.log(this.customUsernameError);
-      if (this.customUsernameError !== '') this.showBtnSpinner = false;
-      else this.router.navigateByUrl('');
+      if (!this.customUsernameError.success) this.showBtnSpinner = false;
+      else this.router.navigateByUrl('login');
     }
   }
 }

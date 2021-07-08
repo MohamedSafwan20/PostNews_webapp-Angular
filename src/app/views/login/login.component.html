@@ -4,19 +4,30 @@
 
 <mat-card class="card">
     <mat-card-content>
-        <mat-form-field appearance="outline">
-            <mat-label>Username/Email</mat-label>
-            <input matInput placeholder="Username/Email">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'">
-            <button mat-icon-button matSuffix (click)="hide = !hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-        </mat-form-field>
-        <div class="login-btn">
-            <button mat-stroked-button color="primary">Log in</button>
-        </div>
+
+        <!-- Custom validation errors -->
+        <div class="custom-error mat-error ng-tns-c84-4" *ngIf="!response.success">{{ response.message }}</div>
+        <!-- End pf Custom validation errors -->
+
+        <form (ngSubmit)="login()">
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input matInput [formControl]="username">
+                <mat-error *ngIf="username.invalid">{{getUsernameErrors()}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="password.invalid">{{getPasswordErrors()}}
+                </mat-error>
+            </mat-form-field>
+            <div class="login-btn">
+                <button mat-stroked-button color="primary" type="submit">Log in</button>
+            </div>
+        </form>
     </mat-card-content>
 </mat-card>

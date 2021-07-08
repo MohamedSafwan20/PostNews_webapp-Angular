@@ -4,6 +4,14 @@
 
 <mat-card class="card">
     <mat-card-content>
+
+        <!-- Custom validation errors -->
+        <div class="custom-error mat-error ng-tns-c84-4" *ngIf="!customUsernameError.success">{{
+            customUsernameError.message }}</div>
+        <div *ngIf="customConfirmPasswordError" class="mat-error ng-tns-c84-4 custom-error">
+            {{customConfirmPasswordError}}</div>
+        <!-- End of Custom validation errors -->
+
         <form (ngSubmit)="signUserUp()">
             <mat-form-field appearance="outline">
                 <mat-label>Username</mat-label>
@@ -11,7 +19,6 @@
                 <mat-error *ngIf="username.invalid">{{getUsernameErrors()}}
                 </mat-error>
             </mat-form-field>
-            <span *ngIf="customUsernameError" class="mat-error ng-tns-c84-4 custom-error">{{customUsernameError}}</span>
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
                 <input matInput [formControl]="email">
@@ -30,8 +37,7 @@
                 <mat-error>{{getConfirmPasswordErrors()}}
                 </mat-error>
             </mat-form-field>
-            <span *ngIf="customConfirmPasswordError"
-                class="mat-error ng-tns-c84-4 custom-error">{{customConfirmPasswordError}}</span>
+
             <div class="signup-btn">
                 <button mat-stroked-button color="primary" type="submit">
                     <mat-spinner diameter="30" style="margin: 7px auto;" *ngIf="showBtnSpinner"></mat-spinner>

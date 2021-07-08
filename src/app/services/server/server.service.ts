@@ -9,15 +9,11 @@ export class ServerService {
 
   constructor(private http: HttpClient) {}
 
-  async signUserUp(data: any) {
-    let usernameAlreadyExistsError: string = '';
-    await this.http
-      .post(`${this.SERVER_URL}/signup`, data)
-      .toPromise()
-      .catch((err) => {
-        if (err.error === 'Username already exists!')
-          usernameAlreadyExistsError = err.error;
-      });
-    return usernameAlreadyExistsError;
+  signUserUp(data: object) {
+    return this.http.post(`${this.SERVER_URL}/signup`, data).toPromise();
+  }
+
+  logUserIn(data: object) {
+    return this.http.post(`${this.SERVER_URL}/login`, data).toPromise();
   }
 }

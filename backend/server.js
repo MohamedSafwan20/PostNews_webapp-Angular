@@ -53,7 +53,7 @@ app.post("/db", (req, res) => {
   });
 });
 
-// creating user in db
+// signing user up and creating user in db
 app.post("/signup", (req, res) => {
   var user = new User({
     username: req.body.username,
@@ -63,11 +63,22 @@ app.post("/signup", (req, res) => {
   User.countDocuments({ username: req.body.username }).then((count) => {
     if (count === 0) {
       user.save((err, data) => {
-        if (err) res.status(406).send(`Unsuccessful: ${err}`);
-        if (data) res.status(200).send(data);
+        if (err) console.log(err);
+        if (data) res.send({ data: data, message: null, success: 1 });
       });
-    } else res.status(406).send("Username already exists!");
+    } else res.send({ message: "Username already exists!", success: 0 });
   });
+});
+
+// Logging user in
+app.post("/login", (req, res) => {
+  User.findOne({ username: req.body.username })
+    .then((data) => {
+      if (data.password === req.body.password)
+        res.send({ message: "User exists", success: 1 });
+      else res.send({ message: "Incorrect Password", success: 0 });
+    })
+    .catch((err) => res.send({ message: "No Account exists", success: 0 }));
 });
 
 app.listen("3000", () => console.log("Server listening on port 3000..."));
