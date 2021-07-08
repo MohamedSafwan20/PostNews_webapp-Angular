@@ -51,8 +51,6 @@ export class LoginComponent implements OnInit {
         username: this.username.value,
         password: this.password.value,
       });
-      console.log('response');
-      console.log(this.response);
       if (!this.response.success) this.showBtnSpinner = false;
       else {
         this.cookie.set('isAuthenticated', 'true', new Date().getDate() + 15);

@@ -19,19 +19,21 @@
                     <mat-icon>account_circle</mat-icon>
                 </button>
             </li>
-            <li><button mat-stroked-button style="border-color: white;">Logout</button></li>
+            <li><button mat-stroked-button style="border-color: white;" (click)="server.logUserOut()">Logout</button>
+            </li>
         </ul>
         <!-- End of navbar elements for homepage -->
 
         <!-- Navbar elements for Login page -->
         <ul *ngIf="page === 'login'">
-            <li><button mat-stroked-button style="border-color: white;">Signup</button></li>
+            <li><button mat-stroked-button style="border-color: white;" routerLink="/signup">Signup</button></li>
         </ul>
         <!-- End of navbar elements for homepage -->
 
         <!-- Navbar elements for homepage -->
         <ul *ngIf="page === 'signup'">
-            <li><button mat-stroked-button style="border-color: white;">Login</button></li>
+            <li><button mat-stroked-button style="border-color: white;" routerLink="/login">Login</button>
+            </li>
         </ul>
         <!-- End of navbar elements for homepage -->
 
