@@ -11,7 +11,6 @@ import { ValidatorService } from 'src/app/services/validator/validator.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  // public isAuthenticated: boolean = false;
   username = new FormControl('', [
     Validators.required,
     Validators.minLength(3),
@@ -51,9 +50,15 @@ export class LoginComponent implements OnInit {
         username: this.username.value,
         password: this.password.value,
       });
+
       if (!this.response.success) this.showBtnSpinner = false;
       else {
         this.cookie.set('isAuthenticated', 'true', new Date().getDate() + 15);
+        this.cookie.set(
+          'token',
+          this.response.token,
+          new Date().getDate() + 15
+        );
         this.router.navigateByUrl('');
       }
     }

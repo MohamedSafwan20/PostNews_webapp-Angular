@@ -32,4 +32,18 @@ export class ValidatorService {
       return "Two passwords didn't match";
     return null;
   }
+
+  validateTitle(title: FormControl) {
+    if (title.hasError('required')) return 'Required';
+    return title.hasError('minLength') !== null
+      ? 'Title must be 3 characters long'
+      : null;
+  }
+
+  validateDescription(desc: FormControl) {
+    if (desc.hasError('required')) return 'Required';
+    return desc.hasError('minlength') !== null
+      ? 'Description must be 5 characters long'
+      : null;
+  }
 }

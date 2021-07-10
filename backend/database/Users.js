@@ -6,14 +6,22 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    trim: true,
   },
   email: {
     type: String,
     required: true,
+    trim: true,
   },
   password: {
     type: String,
     required: true,
+    trim: true,
+  },
+  authToken: {
+    type: String,
+    required: true,
+    default: "No token",
   },
   avatar: String,
   friends: Array,
@@ -21,8 +29,8 @@ const UserSchema = new mongoose.Schema({
   friendRequests: Array,
 });
 
-var User = mongoose.model("User", UserSchema);
+var Users = mongoose.model("Users", UserSchema);
 
 module.exports = {
-  User,
+  Users,
 };
