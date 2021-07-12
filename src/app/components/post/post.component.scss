@@ -1,14 +1,22 @@
 .card {
-  margin: 0px 0px 0px auto;
-  max-width: 60%;
+  margin: 15px 0px 10px auto;
+  width: 60%;
+  border: 1px solid rgb(209, 209, 209);
+  border-radius: 0px;
+
+  .card-actions {
+    display: flex;
+    justify-content: space-evenly;
+  }
 }
 
 .post-img {
-  max-height: 350px;
+  height: 20%;
+  width: 100%;
 }
 
-@media only screen and (max-width: 856px) {
+@media only screen and (max-width: 980px) {
   .card {
-    margin: 0 auto;
+    margin: 15px auto;
   }
 }

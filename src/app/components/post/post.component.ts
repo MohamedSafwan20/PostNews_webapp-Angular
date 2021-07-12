@@ -6,11 +6,14 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  @Input() posts: any = false;
+  @Input() posts: any = null;
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.posts);
+  ngOnInit() {}
+
+  handleEvent() {
+    let date = new Date();
+    console.log(date.toTimeString());
   }
 }
