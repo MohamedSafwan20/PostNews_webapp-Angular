@@ -25,6 +25,7 @@ import { PostsComponent } from './components/posts/posts.component';
 import { PostComponent } from './components/post/post.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
 import { SignupComponent } from './views/signup/signup.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { SignupComponent } from './views/signup/signup.component';
     PostComponent,
     AddPostComponent,
     SignupComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

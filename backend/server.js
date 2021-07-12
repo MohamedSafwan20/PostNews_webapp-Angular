@@ -26,6 +26,7 @@ app.use(express.json());
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PATCH");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -137,12 +138,25 @@ app.get("/posts", verifyToken, (req, res) => {
 });
 
 // Saving post to db
-app.post("/posts", verifyToken, (req, res) => {
+app.post("/posts", verifyToken, async (req, res) => {
+  // Getting author id
+  let author = null;
+
+  await Users.findOne({ username: req.user }, (err, data) => {
+    if (err) {
+      console.log("Error getting Author: ");
+      console.log(err);
+      res.send({ message: "Invalid Token", success: 0 });
+    }
+    if (data) author = data.id;
+  });
+  // End of Getting author id
+
   var post = new Posts({
     title: req.body.title,
     description: req.body.description,
     image: req.body.image,
-    author: req.user,
+    author: author,
   });
 
   post.save((err, data) => {

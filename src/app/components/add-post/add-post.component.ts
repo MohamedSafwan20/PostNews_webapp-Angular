@@ -1,3 +1,5 @@
+import { CommonService } from './../../services/common/common.service';
+import { Router } from '@angular/router';
 import { ServerService } from 'src/app/services/server/server.service';
 import { ValidatorService } from './../../services/validator/validator.service';
 import { FormControl, Validators } from '@angular/forms';
@@ -19,11 +21,10 @@ export class AddPostComponent implements OnInit {
 
   public response: any = false;
 
-  public showBtnSpinner: boolean = false;
-
   constructor(
     private validator: ValidatorService,
-    private server: ServerService
+    private server: ServerService,
+    private common: CommonService
   ) {}
 
   ngOnInit(): void {}
@@ -38,15 +39,13 @@ export class AddPostComponent implements OnInit {
 
   async createPost() {
     if (!(this.title.invalid || this.description.invalid)) {
-      // this.showBtnSpinner = true;
       this.response = await this.server.savePost({
         title: this.title.value,
         description: this.description.value,
         image: this.image,
       });
-      // if (!this.response.success) this.showBtnSpinner = false;
       if (this.response.success) {
-        console.log('success');
+        this.common.refresh('/');
       }
     }
   }

@@ -1,3 +1,4 @@
+import { ServerService } from './../../services/server/server.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -11,9 +12,4 @@ export class PostComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
-
-  handleEvent() {
-    let date = new Date();
-    console.log(date.toTimeString());
-  }
 }

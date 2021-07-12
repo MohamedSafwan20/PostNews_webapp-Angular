@@ -26,7 +26,10 @@
                 </mat-error>
             </mat-form-field>
             <div class="login-btn">
-                <button mat-stroked-button color="primary" type="submit">Log in</button>
+                <button mat-stroked-button color="primary" type="submit">
+                    <mat-spinner diameter="30" style="margin: 7px auto;" *ngIf="showBtnSpinner"></mat-spinner>
+                    <span *ngIf="!showBtnSpinner">Log in</span>
+                </button>
             </div>
         </form>
     </mat-card-content>

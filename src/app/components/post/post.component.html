@@ -1,25 +1,26 @@
-<ng-container *ngIf="posts; else elseBlock">
-    <mat-card class="card" *ngFor="let post of posts">
+<ng-container *ngIf="posts; else elseOfCard">
+    <mat-card class="card" *ngFor="let post of posts" routerLink="/post-detail/{{post._id}}">
         <mat-card-header>
             <mat-card-title>
                 {{post.title}}
             </mat-card-title>
-            <mat-card-subtitle (click)="handleEvent()">
+            <mat-card-subtitle>
                 {{post.createdAt}}
             </mat-card-subtitle>
         </mat-card-header>
-        <mat-card-content>
-            {{post.description}}
+        <mat-card-content *ngIf="post.description.length > 250; else elseOfPostDescription">
+            {{post.description.substring(0, 250)}}...
         </mat-card-content>
+        <ng-template #elseOfPostDescription>
+            <mat-card-content>
+                {{post.description}}
+            </mat-card-content>
+        </ng-template>
         <div mat-card-image *ngIf="post.image">
             <img [src]="post.image" alt="Post image" class="post-img">
         </div>
-        <mat-card-actions class="card-actions">
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-        </mat-card-actions>
     </mat-card>
 </ng-container>
-<ng-template #elseBlock>
-    <h2>Nobody added any news, come back later or add a news by yourself!</h2>
+<ng-template #elseOfCard>
+    <h2 class="no-posts">Nobody added any news, come back later or add a news by yourself!</h2>
 </ng-template>

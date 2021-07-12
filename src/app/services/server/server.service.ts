@@ -9,6 +9,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ServerService {
   private SERVER_URL: string = 'http://localhost:3000';
 
+  private authorizationHeader = new HttpHeaders().set(
+    'Authorization',
+    'Bearer ' + this.cookie.get('token')
+  );
+
   constructor(
     private http: HttpClient,
     private cookie: CookieService,
@@ -39,20 +44,15 @@ export class ServerService {
 
     return this.http
       .post(`${this.SERVER_URL}/posts`, data, {
-        headers: header,
+        headers: this.authorizationHeader,
       })
       .toPromise();
   }
 
   getPosts() {
-    const header = new HttpHeaders().set(
-      'Authorization',
-      'Bearer ' + this.cookie.get('token')
-    );
-
     return this.http
       .get(`${this.SERVER_URL}/posts`, {
-        headers: header,
+        headers: this.authorizationHeader,
       })
       .toPromise();
   }
