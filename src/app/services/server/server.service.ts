@@ -37,11 +37,6 @@ export class ServerService {
 
   // Posts method
   savePost(data: object) {
-    const header = new HttpHeaders().set(
-      'Authorization',
-      'Bearer ' + this.cookie.get('token')
-    );
-
     return this.http
       .post(`${this.SERVER_URL}/posts`, data, {
         headers: this.authorizationHeader,
@@ -52,6 +47,14 @@ export class ServerService {
   getPosts() {
     return this.http
       .get(`${this.SERVER_URL}/posts`, {
+        headers: this.authorizationHeader,
+      })
+      .toPromise();
+  }
+
+  getPost(postId: string) {
+    return this.http
+      .get(`${this.SERVER_URL}/posts/${postId}`, {
         headers: this.authorizationHeader,
       })
       .toPromise();

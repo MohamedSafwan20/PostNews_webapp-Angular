@@ -137,6 +137,18 @@ app.get("/posts", verifyToken, (req, res) => {
   });
 });
 
+// getting single post from db
+app.get("/posts/:id", verifyToken, (req, res) => {
+  Posts.findOne({ _id: req.params.id }, (err, data) => {
+    if (err) {
+      console.log("Error getting post: ");
+      console.log(err);
+      res.send({ message: "can't find post in db", success: 0 });
+    } else if (data) res.send({ data: data, success: 1 });
+    else res.send({ message: "invalid post id", success: 0 });
+  });
+});
+
 // Saving post to db
 app.post("/posts", verifyToken, async (req, res) => {
   // Getting author id

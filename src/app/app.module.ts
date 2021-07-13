@@ -15,6 +15,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
@@ -26,6 +28,7 @@ import { PostComponent } from './components/post/post.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
 import { SignupComponent } from './views/signup/signup.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PostDetailComponent } from './views/post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     AddPostComponent,
     SignupComponent,
     NotFoundComponent,
+    PostDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     FormsModule,
     ReactiveFormsModule,
     NgpImagePickerModule,
+    ClipboardModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
@@ -56,6 +61,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

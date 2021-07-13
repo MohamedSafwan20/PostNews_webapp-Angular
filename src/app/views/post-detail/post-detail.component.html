@@ -1,0 +1,27 @@
+<ng-container>
+    <app-navbar></app-navbar>
+</ng-container>
+<ng-container>
+    <mat-card class="card" *ngIf="response?.success">
+        <mat-card-header style="justify-content: space-between;">
+            <mat-card-title>
+                {{response?.data.title}}
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{response?.data.createdAt}}
+            </mat-card-subtitle>
+            <button mat-icon-button color="primary" [cdkCopyToClipboard]="currentUrl" matTooltip="Copy News link">
+                <mat-icon>
+                    content_copy
+                </mat-icon>
+            </button>
+        </mat-card-header>
+        <mat-card-content>
+            {{response?.data.description}}
+        </mat-card-content>
+
+        <div mat-card-image *ngIf="response?.data.image">
+            <img [src]="response.data.image" alt="Post image" class="post-img">
+        </div>
+    </mat-card>
+</ng-container>
