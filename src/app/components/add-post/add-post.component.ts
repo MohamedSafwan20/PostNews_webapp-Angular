@@ -5,6 +5,7 @@ import { ValidatorService } from './../../services/validator/validator.service';
 import { FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ImagePickerConf } from 'ngp-image-picker';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-post',
@@ -24,7 +25,8 @@ export class AddPostComponent implements OnInit {
   constructor(
     private validator: ValidatorService,
     private server: ServerService,
-    private common: CommonService
+    private common: CommonService,
+    private snackbar: MatSnackBar
   ) {}
 
   ngOnInit(): void {}
@@ -46,6 +48,7 @@ export class AddPostComponent implements OnInit {
       });
       if (this.response.success) {
         this.common.refresh('/');
+        this.snackbar.open('Post successfully added!', 'close');
       }
     }
   }

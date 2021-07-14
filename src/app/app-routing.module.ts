@@ -1,3 +1,4 @@
+import { ProfileComponent } from './views/profile/profile.component';
 import { SignupComponent } from './views/signup/signup.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'post-detail/:id', component: PostDetailComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: '**', component: NotFoundComponent },
 ];
 

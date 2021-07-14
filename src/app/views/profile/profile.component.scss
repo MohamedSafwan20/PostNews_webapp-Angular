@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+
+  .avatar-container {
+    width: 50%;
+    padding-top: 2%;
+    text-align: center;
+
+    .avatar-img {
+      width: 14em;
+      height: 14em;
+      border-radius: 50%;
+    }
+  }
+
+  .details-container {
+    width: 50%;
+    padding-top: 2%;
+  }
+}
+
+mat-form-field {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.edit-profile-btn {
+  margin: 5%;
+  text-align: center;
+  button {
+    width: 25%;
+    height: 10%;
+    border-color: orange;
+  }
+}
+
+.custom-error {
+  font-size: 12px;
+  margin: 14px 10%;
+}
+
+@media only screen and (max-width: 980px) {
+  .container {
+    display: block;
+
+    .avatar-container {
+      width: auto;
+    }
+
+    .details-container {
+      width: auto;
+    }
+  }
+}

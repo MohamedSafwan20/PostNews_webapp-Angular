@@ -1,21 +1,21 @@
 <ng-container>
     <mat-toolbar color="primary" class="nav">
-        <h3 style="letter-spacing: 1px;">PostNews</h3>
+        <h3 style="letter-spacing: 1px;"><a routerLink="/">PostNews</a></h3>
 
         <!-- Navbar elements for homepage -->
         <ul *ngIf="page === ''">
             <li>
-                <button mat-icon-button>
+                <button mat-icon-button matTooltip="Notifications">
                     <mat-icon>notifications</mat-icon>
                 </button>
             </li>
             <li>
-                <button mat-icon-button>
+                <button mat-icon-button matTooltip="Chats">
                     <mat-icon>chat</mat-icon>
                 </button>
             </li>
             <li>
-                <button mat-icon-button>
+                <button mat-icon-button routerLink="/profile" matTooltip="Profile">
                     <mat-icon>account_circle</mat-icon>
                 </button>
             </li>

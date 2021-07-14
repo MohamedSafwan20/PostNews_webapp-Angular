@@ -1,0 +1,47 @@
+<ng-container>
+    <app-navbar></app-navbar>
+</ng-container>
+
+<div class="container">
+    <div class="avatar-container">
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            alt="default_avatar" class="avatar-img">
+    </div>
+
+    <div class="details-container">
+
+        <!-- Custom validation errors -->
+        <div *ngIf="customConfirmPasswordError" class="mat-error ng-tns-c84-4 custom-error">
+            {{customConfirmPasswordError}}</div>
+        <!-- End of Custom validation errors -->
+
+        <form (ngSubmit)="editUserProfile()">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput [formControl]="email">
+                <mat-error *ngIf="email.invalid">{{getEmailErrors()}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="password.invalid">{{getPasswordErrors()}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput type="password" [formControl]="confirmPassword">
+                <mat-error>{{getConfirmPasswordErrors()}}
+                </mat-error>
+            </mat-form-field>
+            <div class="edit-profile-btn">
+                <button mat-stroked-button color="primary" type="submit">
+                    Edit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

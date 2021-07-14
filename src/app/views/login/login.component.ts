@@ -4,6 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ValidatorService } from 'src/app/services/validator/validator.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public cookie: CookieService,
-    private router: Router,
     private validator: ValidatorService,
     private server: ServerService
   ) {}
@@ -59,7 +59,8 @@ export class LoginComponent implements OnInit {
           this.response.token,
           new Date().getDate() + 15
         );
-        this.router.navigateByUrl('');
+        // For reloading the posts from db, can't reload posts if using router api
+        window.location.replace(environment.BASE_URL);
       }
     }
   }

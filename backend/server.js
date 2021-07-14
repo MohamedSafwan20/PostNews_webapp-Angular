@@ -46,37 +46,12 @@ const verifyToken = (req, res, next) => {
       return res.send({ message: "Error: jwt can't be verified", success: 0 });
     }
 
-    req.user = user;
+    req.username = user;
 
     next();
   });
 };
 // end of middlewares
-
-app.get("/db", (req, res) => {
-  console.log("User.find({}");
-  User.find({}, (err, data) => {
-    console.log("err");
-    console.log(err);
-    console.log("data");
-    console.log(data);
-  });
-  res.end();
-  // res.send(User.find({}));
-});
-
-app.post("/db", (req, res) => {
-  process.env.TOKEN_SECRET = require("crypto").randomBytes(64).toString("hex");
-  // console.log(process.env.TOKEN_SECRET);
-  let token = jwt.sign("safwan", process.env.TOKEN_SECRET);
-  res.send(token);
-});
-
-app.post("/dbs", verifyToken, (req, res) => {
-  console.log("req.user");
-  console.log(req.user);
-  res.json("success");
-});
 
 // saving user in db
 app.post("/signup", (req, res) => {
@@ -154,7 +129,7 @@ app.post("/posts", verifyToken, async (req, res) => {
   // Getting author id
   let author = null;
 
-  await Users.findOne({ username: req.user }, (err, data) => {
+  await Users.findOne({ username: req.username }, (err, data) => {
     if (err) {
       console.log("Error getting Author: ");
       console.log(err);
@@ -181,6 +156,36 @@ app.post("/posts", verifyToken, async (req, res) => {
       res.send({ message: "Post created successfully", success: 1 });
     }
   });
+});
+
+// getting user details from db
+app.get("/user", verifyToken, (req, res) => {
+  Users.findOne({ username: req.username }, (err, data) => {
+    if (err) {
+      console.log("Error getting user details: ");
+      console.log(err);
+      res.send({ message: "can't find user in db", success: 0 });
+    } else if (data) res.send({ data: data, success: 1 });
+    else res.send({ message: "invalid username", success: 0 });
+  });
+});
+
+// updating user details in db
+app.patch("/user", verifyToken, (req, res) => {
+  Users.findOneAndUpdate(
+    { username: req.username },
+    { email: req.body.email, password: req.body.password },
+    { new: true }
+  )
+    .then((data) => {
+      res.send({
+        message: "Successful edit",
+        success: 1,
+      });
+    })
+    .catch((err) =>
+      res.send({ message: "can't edit user details", success: 0 })
+    );
 });
 
 app.listen("3000", () => console.log("Server listening on port 3000..."));

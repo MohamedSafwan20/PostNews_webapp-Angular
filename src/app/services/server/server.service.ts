@@ -31,7 +31,9 @@ export class ServerService {
 
   logUserOut() {
     this.cookie.deleteAll();
-    this.router.navigateByUrl('login');
+
+    // For breaking the SPA navigation, so user can't go back to the page which needs authentication
+    window.location.replace('/login');
   }
   // End of Authentication methods
 
@@ -60,4 +62,22 @@ export class ServerService {
       .toPromise();
   }
   // End of Posts method
+
+  // User methods
+  getUser() {
+    return this.http
+      .get(`${this.SERVER_URL}/user`, {
+        headers: this.authorizationHeader,
+      })
+      .toPromise();
+  }
+
+  editUserProfile(data: object) {
+    return this.http
+      .patch(`${this.SERVER_URL}/user`, data, {
+        headers: this.authorizationHeader,
+      })
+      .toPromise();
+  }
+  // End of User methods
 }

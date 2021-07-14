@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
@@ -29,6 +30,7 @@ import { AddPostComponent } from './components/add-post/add-post.component';
 import { SignupComponent } from './views/signup/signup.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PostDetailComponent } from './views/post-detail/post-detail.component';
+import { ProfileComponent } from './views/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { PostDetailComponent } from './views/post-detail/post-detail.component';
     SignupComponent,
     NotFoundComponent,
     PostDetailComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ import { PostDetailComponent } from './views/post-detail/post-detail.component';
     MatInputModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatSnackBarModule,
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

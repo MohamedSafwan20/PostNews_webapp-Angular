@@ -1,3 +1,7 @@
+form {
+  text-align: center;
+}
+
 mat-form-field {
   display: block;
   width: 80%;
@@ -5,12 +9,11 @@ mat-form-field {
 }
 
 .image-picker {
-  width: 50%;
-  margin-left: 10%;
+  width: min-content;
+  margin: 0 auto;
 }
 
 .add-post-btn {
-  margin-left: 10%;
   button {
     color: white;
     width: 30%;
