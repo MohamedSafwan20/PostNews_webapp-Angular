@@ -174,7 +174,11 @@ app.get("/user", verifyToken, (req, res) => {
 app.patch("/user", verifyToken, (req, res) => {
   Users.findOneAndUpdate(
     { username: req.username },
-    { email: req.body.email, password: req.body.password },
+    {
+      email: req.body.email,
+      password: req.body.password,
+      avatar: req.body.avatar,
+    },
     { new: true }
   )
     .then((data) => {

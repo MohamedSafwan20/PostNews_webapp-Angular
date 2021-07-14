@@ -63,4 +63,5 @@ export class AddPostComponent implements OnInit {
     width: '120px',
     height: '60px',
   };
+  initialImage: string = '';
 }

@@ -4,8 +4,10 @@
 
 <div class="container">
     <div class="avatar-container">
-        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-            alt="default_avatar" class="avatar-img">
+        <div class="image-picker">
+            <ngp-image-picker [_imageSrc]="initialImage" [_config]="imagePickerConf"
+                ($imageChanged)="storeImage($event)"></ngp-image-picker>
+        </div>
     </div>
 
     <div class="details-container">
@@ -39,7 +41,8 @@
             </mat-form-field>
             <div class="edit-profile-btn">
                 <button mat-stroked-button color="primary" type="submit">
-                    Edit
+                    <mat-spinner diameter="30" style="margin: 7px auto;" *ngIf="showBtnSpinner"></mat-spinner>
+                    <span *ngIf="!showBtnSpinner">Edit</span>
                 </button>
             </div>
         </form>

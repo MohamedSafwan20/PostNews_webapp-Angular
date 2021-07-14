@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ValidatorService } from 'src/app/services/validator/validator.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ImagePickerConf } from 'ngp-image-picker';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,9 @@ export class ProfileComponent implements OnInit {
     Validators.pattern('^[a-zA-Z0-9]{8,}$'),
   ]);
   confirmPassword = new FormControl('', [Validators.required]);
+  image: string = '';
+
+  showBtnSpinner: boolean = false;
 
   constructor(
     private validator: ValidatorService,
@@ -27,9 +31,12 @@ export class ProfileComponent implements OnInit {
 
   async ngOnInit() {
     this.response = await this.getUserDetail();
+
+    // populating every field with user detail
     this.email.setValue(this.response.data.email);
     this.password.setValue(this.response.data.password);
     this.confirmPassword.setValue(this.response.data.password);
+    this.initialImage = this.response.data.avatar;
   }
 
   customConfirmPasswordError: string = '';
@@ -61,6 +68,18 @@ export class ProfileComponent implements OnInit {
     return this.server.getUser();
   }
 
+  storeImage(event: any) {
+    this.image = event;
+  }
+
+  imagePickerConf: ImagePickerConf = {
+    borderRadius: '10px',
+    language: 'en',
+    width: '14em',
+    height: '14em',
+  };
+  initialImage: string = '';
+
   async editUserProfile() {
     if (
       !(
@@ -70,15 +89,15 @@ export class ProfileComponent implements OnInit {
         this.customConfirmPasswordError
       )
     ) {
-      // this.showBtnSpinner = true;
+      this.showBtnSpinner = true;
       this.response = await this.server.editUserProfile({
         email: this.email.value,
         password: this.password.value,
+        avatar: this.image,
       });
-      console.log(this.response);
       if (this.response.success)
         this.snackbar.open('Profile successfully changed!', 'close');
-      // if (!this.customUsError.success) this.showBtnSpinner = false;
+      this.showBtnSpinner = false;
     }
   }
 }
