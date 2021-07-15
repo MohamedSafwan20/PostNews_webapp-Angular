@@ -8,8 +8,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./post-detail.component.scss'],
 })
 export class PostDetailComponent implements OnInit {
-  public isPostExists: boolean = false;
-
   public response: any = null;
 
   public currentUrl: string = '';
@@ -23,7 +21,6 @@ export class PostDetailComponent implements OnInit {
     this.currentUrl = window.location.href;
     this.activatedRoute.params.subscribe(async (param) => {
       this.response = await this.server.getPost(param.id);
-      if (this.response.success) this.isPostExists = true;
     });
   }
 }

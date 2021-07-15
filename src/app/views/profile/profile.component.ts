@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.response = await this.getUserDetail();
+    this.response = await this.server.getUser();
 
     // populating every field with user detail
     this.email.setValue(this.response.data.email);
@@ -64,10 +64,6 @@ export class ProfileComponent implements OnInit {
     return error;
   }
 
-  getUserDetail(): object {
-    return this.server.getUser();
-  }
-
   storeImage(event: any) {
     this.image = event;
   }
@@ -76,7 +72,7 @@ export class ProfileComponent implements OnInit {
     borderRadius: '10px',
     language: 'en',
     width: '14em',
-    height: '14em',
+    height: '12em',
   };
   initialImage: string = '';
 
@@ -96,7 +92,9 @@ export class ProfileComponent implements OnInit {
         avatar: this.image,
       });
       if (this.response.success)
-        this.snackbar.open('Profile successfully changed!', 'close');
+        this.snackbar.open('Profile Successfully saved!', 'close', {
+          duration: 3000,
+        });
       this.showBtnSpinner = false;
     }
   }

@@ -1,6 +1,6 @@
 <ng-container *ngIf="posts; else elseOfCard">
     <mat-card class="card" *ngFor="let post of posts" routerLink="/post-detail/{{post._id}}">
-        <mat-card-header>
+        <mat-card-header style="justify-content: space-between;">
             <mat-card-title>
                 {{post.title}}
             </mat-card-title>

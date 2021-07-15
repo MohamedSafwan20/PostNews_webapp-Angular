@@ -126,24 +126,11 @@ app.get("/posts/:id", verifyToken, (req, res) => {
 
 // Saving post to db
 app.post("/posts", verifyToken, async (req, res) => {
-  // Getting author id
-  let author = null;
-
-  await Users.findOne({ username: req.username }, (err, data) => {
-    if (err) {
-      console.log("Error getting Author: ");
-      console.log(err);
-      res.send({ message: "Invalid Token", success: 0 });
-    }
-    if (data) author = data.id;
-  });
-  // End of Getting author id
-
   var post = new Posts({
     title: req.body.title,
     description: req.body.description,
     image: req.body.image,
-    author: author,
+    author: req.username,
   });
 
   post.save((err, data) => {
@@ -184,6 +171,40 @@ app.patch("/user", verifyToken, (req, res) => {
     .then((data) => {
       res.send({
         message: "Successful edit",
+        success: 1,
+      });
+    })
+    .catch((err) =>
+      res.send({ message: "can't edit user details", success: 0 })
+    );
+});
+
+// getting user posts from db
+app.get("/user-posts", verifyToken, (req, res) => {
+  Posts.find({ author: req.username }, (err, data) => {
+    if (err) {
+      console.log("Error getting user posts: ");
+      console.log(err);
+      res.send({ message: "No posts for this user", success: 0 });
+    }
+    if (data) res.send({ data: data, success: 1 });
+  });
+});
+
+// updating user post in db
+app.patch("/user-posts", verifyToken, (req, res) => {
+  Posts.findOneAndUpdate(
+    { _id: req.body.id },
+    {
+      title: req.body.title,
+      description: req.body.description,
+      image: req.body.image,
+    },
+    { new: true }
+  )
+    .then((data) => {
+      res.send({
+        message: "Post Successfully edited",
         success: 1,
       });
     })

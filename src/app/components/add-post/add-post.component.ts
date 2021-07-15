@@ -20,7 +20,7 @@ export class AddPostComponent implements OnInit {
   ]);
   image: string = '';
 
-  public response: any = false;
+  public response: any = null;
 
   constructor(
     private validator: ValidatorService,
@@ -48,7 +48,9 @@ export class AddPostComponent implements OnInit {
       });
       if (this.response.success) {
         this.common.refresh('/');
-        this.snackbar.open('Post successfully added!', 'close');
+        this.snackbar.open('Post successfully added!', 'close', {
+          duration: 3000,
+        });
       }
     }
   }

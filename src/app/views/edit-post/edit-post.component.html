@@ -1,0 +1,30 @@
+<ng-container>
+    <app-navbar></app-navbar>
+</ng-container>
+
+<form>
+    <ng-container>
+        <mat-form-field appearance="outline">
+            <mat-label>Title</mat-label>
+            <input matInput placeholder="Enter Post Title" [formControl]="title">
+            <mat-error *ngIf="title.invalid">{{getTitleErrors()}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput style="min-height: 100px;" [formControl]="description"></textarea>
+            <mat-error *ngIf="description.invalid">{{getDescriptionErrors()}}
+            </mat-error>
+        </mat-form-field>
+    </ng-container>
+    <div class="image-picker">
+        <ngp-image-picker [_imageSrc]="initialImage" [_config]="imagePickerConf" ($imageChanged)="storeImage($event)">
+        </ngp-image-picker>
+    </div>
+    <div class="edit-post-btn">
+        <button mat-stroked-button color="primary" (click)="editPost()">
+            <mat-spinner diameter="25" style="margin: 7px auto;" *ngIf="showBtnSpinner"></mat-spinner>
+            <span *ngIf="!showBtnSpinner">Save changes</span>
+        </button>
+    </div>
+</form>

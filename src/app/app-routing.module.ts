@@ -6,6 +6,8 @@ import { HomeComponent } from './views/home/home.component';
 import { LoginComponent } from './views/login/login.component';
 import { PostDetailComponent } from './views/post-detail/post-detail.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { MyPostsComponent } from './views/my-posts/my-posts.component';
+import { EditPostComponent } from './views/edit-post/edit-post.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'post-detail/:id', component: PostDetailComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'my-posts', component: MyPostsComponent },
+  { path: 'edit-post/:id', component: EditPostComponent },
   { path: '**', component: NotFoundComponent },
 ];
 

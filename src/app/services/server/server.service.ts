@@ -61,6 +61,22 @@ export class ServerService {
       })
       .toPromise();
   }
+
+  getUserPosts() {
+    return this.http
+      .get(`${this.SERVER_URL}/user-posts`, {
+        headers: this.authorizationHeader,
+      })
+      .toPromise();
+  }
+
+  editUserPost(data: object) {
+    return this.http
+      .patch(`${this.SERVER_URL}/user-posts`, data, {
+        headers: this.authorizationHeader,
+      })
+      .toPromise();
+  }
   // End of Posts method
 
   // User methods

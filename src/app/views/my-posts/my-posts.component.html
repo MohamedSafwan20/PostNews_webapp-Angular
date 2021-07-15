@@ -1,0 +1,38 @@
+<ng-container>
+    <app-navbar></app-navbar>
+</ng-container>
+<ng-container *ngIf="response?.data.length > 0; else elseOfCard">
+    <mat-card class="card" *ngFor="let post of response.data">
+        <mat-card-header style="justify-content: space-between;">
+            <mat-card-title>
+                {{post.title}}
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{post.createdAt}}
+            </mat-card-subtitle>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item routerLink="/edit-post/{{post._id}}">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                </button>
+            </mat-menu>
+        </mat-card-header>
+        <mat-card-content>
+            {{response?.data.description}}
+        </mat-card-content>
+
+        <div mat-card-image *ngIf="post.image">
+            <img [src]="post.image" alt="Post image" class="post-img">
+        </div>
+    </mat-card>
+</ng-container>
+<ng-template #elseOfCard>
+    <h2 class="no-posts">No Post created yet!</h2>
+</ng-template>

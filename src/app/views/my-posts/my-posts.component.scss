@@ -1,0 +1,21 @@
+.card {
+  margin: 20px auto;
+  width: 55%;
+  min-height: 20em;
+  border: 1px solid rgb(209, 209, 209);
+  border-radius: 0px;
+  padding-bottom: 0px;
+}
+
+.post-img {
+  height: 100%;
+  width: 100%;
+}
+
+.no-posts {
+  text-align: center;
+  font-weight: 400;
+  font-size: 30px;
+  margin-top: 7%;
+  color: rgb(202, 201, 201);
+}
