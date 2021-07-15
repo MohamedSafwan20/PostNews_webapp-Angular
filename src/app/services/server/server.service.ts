@@ -77,6 +77,14 @@ export class ServerService {
       })
       .toPromise();
   }
+
+  deleteUserPost(postId: string) {
+    return this.http
+      .delete(`${this.SERVER_URL}/user-posts/${postId}`, {
+        headers: this.authorizationHeader,
+      })
+      .toPromise();
+  }
   // End of Posts method
 
   // User methods

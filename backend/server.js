@@ -26,7 +26,7 @@ app.use(express.json());
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PATCH");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -102,7 +102,7 @@ app.post("/login", (req, res) => {
 
 // getting posts from db
 app.get("/posts", verifyToken, (req, res) => {
-  Posts.find({}, (err, data) => {
+  Posts.find({}, null, { sort: { createdAt: -1 } }, (err, data) => {
     if (err) {
       console.log("Error getting posts: ");
       console.log(err);
@@ -181,14 +181,19 @@ app.patch("/user", verifyToken, (req, res) => {
 
 // getting user posts from db
 app.get("/user-posts", verifyToken, (req, res) => {
-  Posts.find({ author: req.username }, (err, data) => {
-    if (err) {
-      console.log("Error getting user posts: ");
-      console.log(err);
-      res.send({ message: "No posts for this user", success: 0 });
+  Posts.find(
+    { author: req.username },
+    null,
+    { sort: { createdAt: -1 } },
+    (err, data) => {
+      if (err) {
+        console.log("Error getting user posts: ");
+        console.log(err);
+        res.send({ message: "No posts for this user", success: 0 });
+      }
+      if (data) res.send({ data: data, success: 1 });
     }
-    if (data) res.send({ data: data, success: 1 });
-  });
+  );
 });
 
 // updating user post in db
@@ -211,6 +216,19 @@ app.patch("/user-posts", verifyToken, (req, res) => {
     .catch((err) =>
       res.send({ message: "can't edit user details", success: 0 })
     );
+});
+
+// deleting single post from db
+app.delete("/user-posts/:id", verifyToken, (req, res) => {
+  Posts.deleteOne({ _id: req.params.id }, (err, data) => {
+    if (err) {
+      console.log("Error deleting post: ");
+      console.log(err);
+      res.send({ message: "can't find post in db", success: 0 });
+    } else if (data)
+      res.send({ message: "Post successfully deleted", success: 1 });
+    else res.send({ message: "invalid post id", success: 0 });
+  });
 });
 
 app.listen("3000", () => console.log("Server listening on port 3000..."));
