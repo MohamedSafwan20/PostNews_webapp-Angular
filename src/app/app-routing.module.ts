@@ -8,6 +8,7 @@ import { PostDetailComponent } from './views/post-detail/post-detail.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { MyPostsComponent } from './views/my-posts/my-posts.component';
 import { EditPostComponent } from './views/edit-post/edit-post.component';
+import { ChatComponent } from './views/chat/chat.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'my-posts', component: MyPostsComponent },
   { path: 'edit-post/:id', component: EditPostComponent },
+  { path: 'chat', component: ChatComponent },
   { path: '**', component: NotFoundComponent },
 ];
 

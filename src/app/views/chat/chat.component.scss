@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+
+  .users-list {
+    flex-grow: 1;
+    flex-basis: 20%;
+    padding-top: 2%;
+    width: 50%;
+
+    .user-list-item {
+      cursor: pointer;
+
+      &:hover {
+        animation: hover 0.5s ease;
+        background-color: rgb(212, 212, 212);
+      }
+    }
+
+    .mat-list-icon {
+      height: 2em;
+      width: 2em;
+    }
+  }
+
+  .chat-screen {
+    flex-grow: 2;
+    width: 50%;
+    height: 90vh;
+  }
+}
+
+// animations
+@keyframes hover {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: rgb(212, 212, 212);
+  }
+}

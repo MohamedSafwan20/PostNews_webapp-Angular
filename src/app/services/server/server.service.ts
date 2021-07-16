@@ -2,12 +2,13 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServerService {
-  private SERVER_URL: string = 'http://localhost:3000';
+  private SERVER_URL: string = environment.DB_SERVER_URL;
 
   private authorizationHeader = new HttpHeaders().set(
     'Authorization',
@@ -99,6 +100,14 @@ export class ServerService {
   editUserProfile(data: object) {
     return this.http
       .patch(`${this.SERVER_URL}/user`, data, {
+        headers: this.authorizationHeader,
+      })
+      .toPromise();
+  }
+
+  getUsers() {
+    return this.http
+      .get(`${this.SERVER_URL}/users`, {
         headers: this.authorizationHeader,
       })
       .toPromise();

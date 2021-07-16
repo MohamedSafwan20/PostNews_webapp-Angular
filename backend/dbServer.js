@@ -20,12 +20,13 @@ require("dotenv").config();
 
 const { Users } = require("./database/Users");
 const { Posts } = require("./database/Posts");
+const { Chats } = require("./database/Chats");
 
 // middlewares
 app.use(express.json());
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
   res.header(
     "Access-Control-Allow-Headers",
@@ -231,4 +232,32 @@ app.delete("/user-posts/:id", verifyToken, (req, res) => {
   });
 });
 
-app.listen("3000", () => console.log("Server listening on port 3000..."));
+// getting user details from db
+app.post("/chat", (req, res) => {
+  Chats.findOne({ roomName: req.body.username }, (err, data) => {
+    if (err) {
+      console.log("Error getting room details: ");
+      console.log(err);
+      res.send({ message: "can't find room in db", success: 0 });
+    } else if (data) res.send({ data: data, success: 1 });
+    else res.send({ message: "invalid room name", success: 0 });
+  });
+});
+
+// getting all users from db
+app.get("/users", verifyToken, (req, res) => {
+  Users.find({}, { username: 1, avatar: 1, _id: 0 }, (err, data) => {
+    if (err) {
+      console.log("Error getting users: ");
+      console.log(err);
+      res.send({ message: "can't find users in db", success: 0 });
+    } else if (data)
+      res.send({
+        data: data,
+        success: 1,
+      });
+    else res.send({ message: "Bad gateway", success: 0 });
+  });
+});
+
+app.listen("3000", () => console.log("Db Server listening on port 3000..."));

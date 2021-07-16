@@ -1,0 +1,15 @@
+<ng-container>
+    <div class="chat-screen-header">
+        <h4 style="padding: 8px; font-size: large; margin: 0;">{{currentUser.params.username}}</h4>
+    </div>
+    <mat-divider style="border-top-color: rgb(230, 150, 3);"></mat-divider>
+    <div class="chat-screen-body"></div>
+    <div class="chat-screen-input">
+        <mat-form-field appearance="outline" style="width: 33vw;">
+            <input matInput placeholder="Type message">
+        </mat-form-field>
+        <button mat-icon-button matTooltip="Send message">
+            <mat-icon color="primary">send</mat-icon>
+        </button>
+    </div>
+</ng-container>

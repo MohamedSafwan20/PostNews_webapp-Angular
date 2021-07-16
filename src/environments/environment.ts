@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   BASE_URL: 'http://localhost:4200/',
+  DB_SERVER_URL: 'http://localhost:3000',
+  SOCKET_SERVER_URL: 'http://localhost:4000',
 };
 
 /*

@@ -19,6 +19,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
@@ -34,6 +36,8 @@ import { PostDetailComponent } from './views/post-detail/post-detail.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { MyPostsComponent } from './views/my-posts/my-posts.component';
 import { EditPostComponent } from './views/edit-post/edit-post.component';
+import { ChatComponent } from './views/chat/chat.component';
+import { ChatScreenComponent } from './components/chat-screen/chat-screen.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,8 @@ import { EditPostComponent } from './views/edit-post/edit-post.component';
     ProfileComponent,
     MyPostsComponent,
     EditPostComponent,
+    ChatComponent,
+    ChatScreenComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +78,8 @@ import { EditPostComponent } from './views/edit-post/edit-post.component';
     MatTooltipModule,
     MatSnackBarModule,
     MatMenuModule,
+    MatListModule,
+    MatDividerModule,
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
