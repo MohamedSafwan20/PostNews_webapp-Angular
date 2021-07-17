@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { SocketService } from './../../services/socket/socket.service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -7,13 +8,19 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./chat-screen.component.scss'],
 })
 export class ChatScreenComponent implements OnInit {
-  constructor(private activatedRoute: ActivatedRoute) {}
+  public params: any;
 
-  public currentUser: any;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private socket: SocketService
+  ) {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.params = params;
+    });
+  }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParamMap.subscribe(
-      (params) => (this.currentUser = params)
-    );
+    // this.socket.connect();
+    console.log(this.params);
   }
 }

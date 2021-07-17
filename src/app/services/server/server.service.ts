@@ -105,7 +105,7 @@ export class ServerService {
       .toPromise();
   }
 
-  getUsers() {
+  getUsersExceptCurrentUser() {
     return this.http
       .get(`${this.SERVER_URL}/users`, {
         headers: this.authorizationHeader,
@@ -113,4 +113,22 @@ export class ServerService {
       .toPromise();
   }
   // End of User methods
+
+  // Chat methods
+  checkChatRoomExists(data: object) {
+    return this.http
+      .post(`${this.SERVER_URL}/chat-room`, data, {
+        headers: this.authorizationHeader,
+      })
+      .toPromise();
+  }
+
+  createChatRoom(data: object) {
+    return this.http
+      .post(`${this.SERVER_URL}/create-chat-room`, data, {
+        headers: this.authorizationHeader,
+      })
+      .toPromise();
+  }
+  // End of Chat methods
 }

@@ -232,31 +232,63 @@ app.delete("/user-posts/:id", verifyToken, (req, res) => {
   });
 });
 
-// getting user details from db
-app.post("/chat", (req, res) => {
-  Chats.findOne({ roomName: req.body.username }, (err, data) => {
-    if (err) {
-      console.log("Error getting room details: ");
-      console.log(err);
-      res.send({ message: "can't find room in db", success: 0 });
-    } else if (data) res.send({ data: data, success: 1 });
-    else res.send({ message: "invalid room name", success: 0 });
-  });
+// getting all users except one from db
+app.get("/users", verifyToken, (req, res) => {
+  Users.find(
+    {
+      username: { $ne: req.username },
+    },
+    { username: 1, avatar: 1, _id: 0 },
+    (err, data) => {
+      if (err) {
+        console.log("Error getting users: ");
+        console.log(err);
+        res.send({ message: "can't find users in db", success: 0 });
+      } else if (data)
+        res.send({
+          data: data,
+          success: 1,
+        });
+      else res.send({ message: "Bad gateway", success: 0 });
+    }
+  );
 });
 
-// getting all users from db
-app.get("/users", verifyToken, (req, res) => {
-  Users.find({}, { username: 1, avatar: 1, _id: 0 }, (err, data) => {
+// checking whether chat room exists or not in db
+app.post("/chat-room", verifyToken, (req, res) => {
+  Chats.findOne(
+    { users: { $all: [req.username, req.body.usernameOfChatUser] } },
+    { _id: 1 },
+    (err, data) => {
+      if (err) {
+        console.log("Error getting room details: ");
+        console.log(err);
+        res.send({ message: "can't find room in db", success: 0 });
+      } else if (data) res.send({ data: data, success: 1 });
+      else res.send({ message: "No room with these users", success: 0 });
+    }
+  );
+});
+
+// creating chat room in db
+app.post("/create-chat-room", verifyToken, (req, res) => {
+  var chat = new Chats({
+    users: [req.username, req.body.usernameOfChatUser],
+  });
+
+  chat.save((err, data) => {
     if (err) {
-      console.log("Error getting users: ");
+      console.log("Error while saving chat room: ");
       console.log(err);
-      res.send({ message: "can't find users in db", success: 0 });
-    } else if (data)
+      res.sendStatus(400);
+    }
+    if (data) {
       res.send({
-        data: data,
+        id: data._id,
+        message: "Room created successfully",
         success: 1,
       });
-    else res.send({ message: "Bad gateway", success: 0 });
+    }
   });
 });
 

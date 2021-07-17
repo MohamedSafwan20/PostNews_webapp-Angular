@@ -15,6 +15,8 @@ export class ChatComponent implements OnInit {
 
   public isQueryStringExists: boolean = false;
 
+  private chatRoom: any;
+
   constructor(
     private socket: SocketService,
     private ref: ElementRef,
@@ -25,7 +27,8 @@ export class ChatComponent implements OnInit {
 
   async ngOnInit() {
     // this.socket.connect();
-    this.response = await this.server.getUsers();
+    this.response = await this.server.getUsersExceptCurrentUser();
+
     this.activatedRoute.queryParams.subscribe((params) => {
       params.username
         ? (this.isQueryStringExists = true)
@@ -33,10 +36,31 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  sendCurrentUser(user: any) {
-    this.router.navigate(['/chat'], {
-      queryParams: { username: user.username },
+  async initializeChatScreen(user: any) {
+    this.chatRoom = await this.server.checkChatRoomExists({
+      usernameOfChatUser: user.username,
     });
+
+    if (this.chatRoom.success) {
+      this.router.navigate(['/chat'], {
+        queryParams: {
+          username: user.username,
+          roomId: this.chatRoom.data._id,
+        },
+      });
+    } else {
+      this.chatRoom = await this.server.createChatRoom({
+        usernameOfChatUser: user.username,
+      });
+      if (this.chatRoom.success) {
+        this.router.navigate(['/chat'], {
+          queryParams: {
+            username: user.username,
+            roomId: this.chatRoom.id,
+          },
+        });
+      }
+    }
   }
 
   // sendMessage() {

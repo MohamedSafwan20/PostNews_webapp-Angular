@@ -4,7 +4,8 @@
 <div class="container">
     <div class="users-list">
         <mat-list>
-            <mat-list-item *ngFor="let user of response?.data" class="user-list-item" (click)="sendCurrentUser(user)">
+            <mat-list-item *ngFor="let user of response?.data" class="user-list-item"
+                (click)="initializeChatScreen(user)">
                 <img mat-list-icon [src]="user.avatar" />
                 <div mat-line>{{ user.username }}</div>
                 <div mat-line> user.lastseen </div>
