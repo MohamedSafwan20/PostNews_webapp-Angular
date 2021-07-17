@@ -130,5 +130,13 @@ export class ServerService {
       })
       .toPromise();
   }
+
+  getChatMessages(roomId: string) {
+    return this.http
+      .get(`${this.SERVER_URL}/chat-message/${roomId}`, {
+        headers: this.authorizationHeader,
+      })
+      .toPromise();
+  }
   // End of Chat methods
 }

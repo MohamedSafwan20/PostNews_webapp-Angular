@@ -9,8 +9,6 @@ import { SocketService } from 'src/app/services/socket/socket.service';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit {
-  // chatMsg: string = '';
-  // chatList: any;
   public response: any;
 
   public isQueryStringExists: boolean = false;
@@ -19,14 +17,15 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private socket: SocketService,
-    private ref: ElementRef,
     private server: ServerService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    socket.connect();
+  }
 
   async ngOnInit() {
-    // this.socket.connect();
+    // For listing users in chat except the current user
     this.response = await this.server.getUsersExceptCurrentUser();
 
     this.activatedRoute.queryParams.subscribe((params) => {
@@ -42,6 +41,7 @@ export class ChatComponent implements OnInit {
     });
 
     if (this.chatRoom.success) {
+      this.socket.joinRoom(this.chatRoom.data._id);
       this.router.navigate(['/chat'], {
         queryParams: {
           username: user.username,
@@ -53,6 +53,7 @@ export class ChatComponent implements OnInit {
         usernameOfChatUser: user.username,
       });
       if (this.chatRoom.success) {
+        this.socket.joinRoom(this.chatRoom.id);
         this.router.navigate(['/chat'], {
           queryParams: {
             username: user.username,
@@ -63,13 +64,7 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  // sendMessage() {
-  //   this.socket.sendMessage({ username: 'safwan', message: this.chatMsg });
-  //   this.chatList = this.ref.nativeElement.querySelector('.chat-list');
-  //   this.chatList.insertAdjacentHTML('beforeend', `<li>${this.chatMsg}</li>`);
-  // }
-
-  // ngOnDestroy() {
-  //   this.socket.disconnect();
-  // }
+  ngOnDestroy() {
+    this.socket.disconnect();
+  }
 }

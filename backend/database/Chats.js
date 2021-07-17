@@ -5,6 +5,7 @@ const ChatSchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
+  messages: Array,
 });
 
 var Chats = mongoose.model("Chats", ChatSchema);

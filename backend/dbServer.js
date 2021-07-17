@@ -21,6 +21,7 @@ require("dotenv").config();
 const { Users } = require("./database/Users");
 const { Posts } = require("./database/Posts");
 const { Chats } = require("./database/Chats");
+const { ChangeDetectionStrategy } = require("@angular/core");
 
 // middlewares
 app.use(express.json());
@@ -289,6 +290,36 @@ app.post("/create-chat-room", verifyToken, (req, res) => {
         success: 1,
       });
     }
+  });
+});
+
+// saving chat messages in db
+app.post("/chat-message", (req, res) => {
+  Chats.findOneAndUpdate(
+    { _id: req.body.chatData.room },
+    {
+      $push: { messages: req.body.chatData.message },
+    },
+    { new: true }
+  )
+    .then((data) => {
+      res.send({
+        message: "message Successfully added",
+        success: 1,
+      });
+    })
+    .catch((err) => res.send({ message: "can't add messages", success: 0 }));
+});
+
+// getting chat messages from db
+app.get("/chat-message/:roomId", verifyToken, (req, res) => {
+  Chats.findOne({ _id: req.params.roomId }, (err, data) => {
+    if (err) {
+      console.log("Error getting chat messages: ");
+      console.log(err);
+      res.send({ message: "can't find chat in db", success: 0 });
+    } else if (data) res.send({ data: data.messages, success: 1 });
+    else res.send({ message: "invalid room id", success: 0 });
   });
 });
 

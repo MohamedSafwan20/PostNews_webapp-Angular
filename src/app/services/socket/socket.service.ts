@@ -1,4 +1,6 @@
+import { ServerService } from './../server/server.service';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { io } from 'socket.io-client';
 import { environment } from 'src/environments/environment';
 
@@ -8,19 +10,31 @@ import { environment } from 'src/environments/environment';
 export class SocketService {
   private socket: any;
 
-  constructor() {}
+  private response: any;
+
+  constructor(private server: ServerService) {}
 
   connect() {
     this.socket = io(environment.SOCKET_SERVER_URL);
+  }
 
-    this.socket.on('broadcast', (msg: string) => console.log(msg));
+  joinRoom(room: string) {
+    this.socket.emit('join', room);
+  }
+
+  sendMessage(data: any) {
+    this.socket.emit('message', data);
+  }
+
+  getLiveMessage() {
+    return new Observable<any>((observer) => {
+      this.socket.on('new message', (msg: any) => {
+        observer.next(msg);
+      });
+    });
   }
 
   disconnect() {
-    if (this.socket) this.socket.disconnect();
-  }
-
-  sendMessage(data: object) {
-    this.socket.emit('msg', data);
+    this.socket.disconnect();
   }
 }
