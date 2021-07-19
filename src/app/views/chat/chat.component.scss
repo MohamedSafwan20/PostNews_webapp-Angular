@@ -8,15 +8,6 @@
     padding-top: 2%;
     width: 50%;
 
-    .user-list-item {
-      cursor: pointer;
-
-      &:hover {
-        animation: hover 0.5s ease;
-        background-color: rgb(212, 212, 212);
-      }
-    }
-
     .mat-list-icon {
       height: 2em;
       width: 2em;

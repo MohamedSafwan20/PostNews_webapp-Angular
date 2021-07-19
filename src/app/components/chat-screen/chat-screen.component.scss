@@ -4,6 +4,12 @@
   align-items: center;
 }
 
+.chat-list {
+  list-style-type: none;
+  padding: 2vw;
+  margin: 0;
+}
+
 .chat-screen-input {
   position: absolute;
   bottom: 0;

@@ -3,17 +3,17 @@
 </ng-container>
 <div class="container">
     <div class="users-list">
-        <mat-list>
-            <mat-list-item *ngFor="let user of response?.data" class="user-list-item"
+        <mat-selection-list [multiple]="false">
+            <mat-list-option *ngFor="let user of response?.data" [value]="user.username"
                 (click)="initializeChatScreen(user)">
                 <img mat-list-icon [src]="user.avatar" />
                 <div mat-line>{{ user.username }}</div>
-                <div mat-line> user.lastseen </div>
-            </mat-list-item>
-        </mat-list>
+                <div mat-line>Joined In {{user.joinedOn}} </div>
+            </mat-list-option>
+        </mat-selection-list>
     </div>
     <mat-divider [vertical]="true" style="border-right-color: rgb(230, 150, 3);"></mat-divider>
     <div class="chat-screen">
-        <app-chat-screen *ngIf="isQueryStringExists"></app-chat-screen>
+        <app-chat-screen *ngIf="isQueryStringExists" [chatRoom]="chatRoom"></app-chat-screen>
     </div>
 </div>

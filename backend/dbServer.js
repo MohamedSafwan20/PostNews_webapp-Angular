@@ -239,7 +239,7 @@ app.get("/users", verifyToken, (req, res) => {
     {
       username: { $ne: req.username },
     },
-    { username: 1, avatar: 1, _id: 0 },
+    { username: 1, avatar: 1, joinedOn: 1, _id: 0 },
     (err, data) => {
       if (err) {
         console.log("Error getting users: ");
@@ -259,13 +259,14 @@ app.get("/users", verifyToken, (req, res) => {
 app.post("/chat-room", verifyToken, (req, res) => {
   Chats.findOne(
     { users: { $all: [req.username, req.body.usernameOfChatUser] } },
-    { _id: 1 },
+    { _id: 1, users: 1 },
     (err, data) => {
       if (err) {
         console.log("Error getting room details: ");
         console.log(err);
         res.send({ message: "can't find room in db", success: 0 });
-      } else if (data) res.send({ data: data, success: 1 });
+      } else if (data)
+        res.send({ data: { data, currentUser: req.username }, success: 1 });
       else res.send({ message: "No room with these users", success: 0 });
     }
   );
@@ -285,7 +286,7 @@ app.post("/create-chat-room", verifyToken, (req, res) => {
     }
     if (data) {
       res.send({
-        id: data._id,
+        data: { id: data._id, users: data.users, currentUser: req.username },
         message: "Room created successfully",
         success: 1,
       });

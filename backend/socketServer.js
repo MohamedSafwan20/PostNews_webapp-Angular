@@ -25,13 +25,9 @@ io.on("connection", (socket) => {
       .post(`${process.env.DB_SERVER_URL}/chat-message`, {
         chatData: data,
       })
-      .then((res) => {
-        console.log(res.data);
-      })
       .catch((error) => {
         console.error(error);
       });
-
     io.to(data.room).emit("new message", data.message);
   });
 

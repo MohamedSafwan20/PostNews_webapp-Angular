@@ -1,12 +1,22 @@
 <ng-container>
     <div class="chat-screen-header">
-        <h4 style="padding: 8px; font-size: large; margin: 0;">{{params.username}}</h4>
+        <!-- <h4 >{{params.username}}</h4> -->
+        <mat-toolbar style="margin-top: 2vh;">
+            <mat-icon>chat</mat-icon>
+            <span style="padding-left: 2vw;">{{ params.username }}</span>
+        </mat-toolbar>
     </div>
-    <mat-divider style="border-top-color: rgb(230, 150, 3);"></mat-divider>
     <div class="chat-screen-body">
-        <ul class="chat-list" *ngFor="let message of initializeChatMessagesFromDb?.data">
-            <li>{{message}}</li>
+        <ul class="chat-list" *ngIf="initializeChatMessagesFromDb?.data.length > 0; else elseOfChatMessages">
+            <!-- Giving inline style for rendering live messages -->
+            <li *ngFor="let message of initializeChatMessagesFromDb.data" [style]="setStyleForChatMessage(message)">
+                {{message.text}}
+            </li>
         </ul>
+        <ng-template #elseOfChatMessages>
+            <ul class="chat-list">
+            </ul>
+        </ng-template>
     </div>
     <div class="chat-screen-input">
         <mat-form-field appearance="outline" style="width: 33vw;">

@@ -13,7 +13,7 @@ export class ChatComponent implements OnInit {
 
   public isQueryStringExists: boolean = false;
 
-  private chatRoom: any;
+  public chatRoom: any;
 
   constructor(
     private socket: SocketService,
@@ -41,11 +41,11 @@ export class ChatComponent implements OnInit {
     });
 
     if (this.chatRoom.success) {
-      this.socket.joinRoom(this.chatRoom.data._id);
+      this.socket.joinRoom(this.chatRoom.data.data._id);
       this.router.navigate(['/chat'], {
         queryParams: {
           username: user.username,
-          roomId: this.chatRoom.data._id,
+          roomId: this.chatRoom.data.data._id,
         },
       });
     } else {
@@ -53,11 +53,11 @@ export class ChatComponent implements OnInit {
         usernameOfChatUser: user.username,
       });
       if (this.chatRoom.success) {
-        this.socket.joinRoom(this.chatRoom.id);
+        this.socket.joinRoom(this.chatRoom.data.id);
         this.router.navigate(['/chat'], {
           queryParams: {
             username: user.username,
-            roomId: this.chatRoom.id,
+            roomId: this.chatRoom.data.id,
           },
         });
       }
